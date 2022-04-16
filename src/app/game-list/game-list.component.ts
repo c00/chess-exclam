@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GameLevel, levels } from '../../model/GameLevel';
+import { ProgressService } from '../progress.service';
 
 @Component({
   selector: 'exclam-game-list',
@@ -10,9 +11,16 @@ export class GameListComponent {
   @Output() selectLevel = new EventEmitter<GameLevel>();
   list: GameLevel[];
 
-  constructor() {
-    //todo load saved data
-    this.list = [...levels];
+  get myPoints(): number {
+    return this.ps.progress.points;
+  }
+
+  constructor(private ps: ProgressService) {
+    this.list = levels;
+  }
+
+  isComplete(l: GameLevel): boolean {
+    return this.ps.progress.levels[l.id]?.passed
   }
 
   select(l: GameLevel): void {

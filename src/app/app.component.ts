@@ -3,6 +3,8 @@ import { ChessSquare } from '../model/ChessSquare';
 import { ChessBoard } from '../model/ChessBoard';
 import { Game, Challenge } from '../model/Game';
 import { GameLevel } from '../model/GameLevel';
+import { filter } from 'rxjs/operators';
+import { ProgressService } from './progress.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +18,7 @@ export class AppComponent {
   challenge: Challenge;
   centerText: string;
 
-  constructor() {}
+  constructor(private ps: ProgressService) {}
 
   squareClick(e: ChessSquare): void {
     if (this.game?.state !== 'active') return;
@@ -33,10 +35,14 @@ export class AppComponent {
   }
 
   startGame(): void {
-    const squares = this.board.squares.filter(s => this.level.squares.includes(s.coords));
-    this.game = new Game(squares, this.level.mode, this.level.opts);
+    const squares = this.board.squares.filter((s) =>
+      this.level.squares.includes(s.coords)
+    );
+    this.game = new Game(squares, this.level);
     this.board.enableSquares(this.level.squares);
     this.challenge = this.game.start();
+    this.game.completed.subscribe((r) => this.ps.gameComplete(r));
+
     this.board.setColor(this.level.side);
     this.prepChallenge();
   }

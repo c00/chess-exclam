@@ -1,5 +1,15 @@
 <h3>Available Games</h3>
-<div *ngFor="let l of list" class="mb-1">
-  {{ l.name }}
-  <button class="btn btn-primary btn-sm" (click)="select(l)">select</button>
-</div>
+
+<ng-container *ngFor="let l of list">
+  <div *ngIf="l.pointsRequired <= myPoints" class="mb-1">
+    {{ l.name }} 
+    
+    <ng-container *ngIf="isComplete(l); else opened">
+      <small *ngIf="isComplete(l)">(completed)</small>
+      <button class="btn btn-sm" (click)="select(l)">play again</button>
+    </ng-container>
+    <ng-template #opened>
+      <button class="btn btn-primary btn-sm" (click)="select(l)">play</button>
+    </ng-template>
+  </div>
+</ng-container>

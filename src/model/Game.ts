@@ -1,9 +1,11 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ChessSquare } from './ChessSquare';
 import { shuffleArray } from './shuffle';
+import { GameLevel } from './GameLevel';
 
 export class Game {
   onTick = new BehaviorSubject<number>(0);
+  completed: Subject<GameResult>;
 
   get result(): GameResult {
     return this._result;
@@ -26,7 +28,7 @@ export class Game {
   }
 
   get mode(): GameMode {
-    return this._mode;
+    return this._level.mode;
   }
 
   get secondsLeft(): number {
@@ -43,11 +45,10 @@ export class Game {
 
   constructor(
     private _squares: ChessSquare[],
-    private _mode: GameMode,
-    opts?: Partial<GameOptions>
+    private _level: GameLevel
   ) {
-    if (!opts) opts = {};
-    this.opts = Object.assign({}, opts, defaultGameOpts);
+    if (!_level.opts) _level.opts = {};
+    this.opts = Object.assign({}, _level.opts, defaultGameOpts);
   }
 
   start(): Challenge {
@@ -55,6 +56,7 @@ export class Game {
       throw 'Cannot start Game. State incorrect.';
     this._state = 'active';
     this._secondsLeft = this.opts.seconds;
+    this.completed = new Subject();
     this.timer = setInterval(() => this.tick(), 1000);
 
     this.onTick.next(this._secondsLeft);
@@ -130,8 +132,11 @@ export class Game {
         passed: state === 'passed',
         score: this.score,
         mistakes: this.mistakes,
+        levelId: this._level.id,
       };
       this.onTick.next(this._secondsLeft);
+      this.completed.next(this.result);
+      this.completed.complete();
       return;
     }
     this._secondsLeft--;
@@ -154,8 +159,8 @@ export interface GameOptions {
 }
 
 const defaultGameOpts: GameOptions = {
-  seconds: 30,
-  target: 20,
+  seconds: 5,
+  target: 1,
   maxMistakes: 1,
 };
 
@@ -171,6 +176,7 @@ export interface ChallengeResult {
 }
 
 export interface GameResult {
+  levelId?: number;
   score: number;
   mistakes: number;
   passed: boolean;
