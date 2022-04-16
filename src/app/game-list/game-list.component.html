@@ -1,0 +1,5 @@
+<h3>Available Games</h3>
+<div *ngFor="let l of list" class="mb-1">
+  {{ l.name }}
+  <button class="btn btn-primary btn-sm" (click)="select(l)">select</button>
+</div>

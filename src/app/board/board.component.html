@@ -1,15 +1,10 @@
-<div class="controls my-2">
-  <button class="btn" (click)="board.flip()">Flip Board</button>
-  <button class="btn" (click)="board.showSquareCoords()">Show Coords</button>
-  <button class="btn" (click)="board.hideSquareCoords()">Hide Coords</button>
-  <button class="btn" (click)="board.toggleSideCoords()">Toggle Side Coords</button>
-</div>
-
-<div class="chessboard" [style.width.px]="size">
+<div class="chessboard" [style.maxWidth.px]="size" [style.minWidth.px]="220">
   <div class="row p-0 position-relative" *ngFor="let row of board.board; let ci = index">
     <div
       (click)="squareClick.emit(s)"
       class="board-square col"
+      [class.highlight]="s.highlight"
+      [class.disabled]="s.disabled"
       [class.dark]="s.isDark"
       [class.text-dark]="s.isLight"
       [class.light]="s.isLight"
@@ -23,9 +18,12 @@
       </div>
 
       <ng-container *ngIf="board.showSideCoords">
-        <span *ngIf="ri === 7" class="side-coord top-right">{{ s.file }}</span>
-        <span *ngIf="ci === 7" class="side-coord left-bottom">{{ s.rank }}</span>
+        <span *ngIf="ri === 7" class="side-coord top-right">{{ s.rank }}</span>
+        <span *ngIf="ci === 7" class="side-coord left-bottom">{{ s.file }}</span>
       </ng-container>
     </div>
+  </div>
+  <div class="centered-content" *ngIf="centerText">
+    <span class="content-square">{{ centerText }}</span>
   </div>
 </div>

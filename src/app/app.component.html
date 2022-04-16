@@ -1,6 +1,53 @@
 <exclam-navbar></exclam-navbar>
-<div class="container text-center">
-  <exclam-board [board]="board" (squareClick)="squareClick($event)"></exclam-board>
-  <div>Player: <b>{{ board.playerColor }}</b></div>
-  <div *ngIf="square">Last Clicked: <b>{{ square.coords }}</b></div>
+<div class="container text-center mt-4">
+  <exclam-game-list (selectLevel)="level = $event"></exclam-game-list>
+  <div class="row">
+    <div class="col-md-12">
+      <exclam-board
+        [board]="board"
+        (squareClick)="squareClick($event)"
+        [centerText]="centerText"
+      >
+      </exclam-board>
+      <div>
+        Player: <b>{{ board.playerColor }}</b>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <ng-container *ngIf="game; else noGame">
+        <div class="my-2" *ngIf="game.mode === 'pick-coords'">
+          <button
+            class="btn btn-info mx-2"
+            *ngFor="let o of challenge.options"
+            (click)="answerClick(o)"
+          >
+            {{ o }}
+          </button>
+        </div>
+        <div>
+          Score: <b>{{ game.score }}</b>
+        </div>
+        <div>
+          Mistakes: <b>{{ game.mistakes }}</b>
+        </div>
+        <div *ngIf="game.state === 'active'">
+          Time left: <b>{{ game.onTick | async }}</b>
+        </div>
+        <div>
+          Game state: <b>{{ game.state }}</b>
+        </div>
+        <div *ngIf="game.state !== 'active'">
+          <button *ngIf="level" class="btn btn-primary" (click)="startGame()">
+            Start new Game ({{ level.name }})
+          </button>
+        </div>
+      </ng-container>
+      <ng-template #noGame>
+        <button *ngIf="level" class="btn btn-primary" (click)="startGame()">
+          Start new Game ({{ level.name }})
+        </button>
+      </ng-template>
+    </div>
+  </div>
 </div>

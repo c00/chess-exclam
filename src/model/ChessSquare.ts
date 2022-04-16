@@ -1,6 +1,9 @@
 export class ChessSquare {
   showCoords = true;
 
+  highlight = false;
+  disabled = false;
+
   get coords(): string {
     return this._coords;
   }

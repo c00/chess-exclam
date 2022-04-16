@@ -10,6 +10,7 @@ import { ChessSquare } from '../../model/ChessSquare';
 export class BoardComponent implements OnInit {
   @Output() squareClick = new EventEmitter<ChessSquare>();
   @Input() size = 400;
+  @Input() centerText: string;
   @Input() board: ChessBoard;
 
 
