@@ -1,0 +1,42 @@
+.chessboard {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.board-square {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: calc(100% / 8);
+  aspect-ratio: 1/1;
+
+  .content {
+    font-size: 1.3em;
+    font-weight: bold;
+    width: 100%;
+  }
+}
+
+.light {
+  background-color: #efd9b7;
+}
+
+.dark {
+  background-color: #b28965;
+}
+
+.side-coord {
+  font-size: 0.7em;
+  position: absolute;
+
+  &.left-bottom {
+    left: 2px;
+    bottom: 0;
+  }
+
+  &.top-right {
+    right: 2px;
+    top: 0;
+  }
+}

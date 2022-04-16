@@ -1,0 +1,6 @@
+<exclam-navbar></exclam-navbar>
+<div class="container text-center">
+  <exclam-board [board]="board" (squareClick)="squareClick($event)"></exclam-board>
+  <div>Player: <b>{{ board.playerColor }}</b></div>
+  <div *ngIf="square">Last Clicked: <b>{{ square.coords }}</b></div>
+</div>
