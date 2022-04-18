@@ -1,15 +1,19 @@
-<h3>Available Games</h3>
+<h3>Available Levels</h3>
 
-<ng-container *ngFor="let l of list">
+<ng-container *ngFor="let l of open">
   <div *ngIf="l.pointsRequired <= myPoints" class="mb-1">
-    {{ l.name }} 
-    
-    <ng-container *ngIf="isComplete(l); else opened">
-      <small *ngIf="isComplete(l)">(completed)</small>
-      <button class="btn btn-sm" (click)="select(l)">play again</button>
-    </ng-container>
-    <ng-template #opened>
-      <button class="btn btn-primary btn-sm" (click)="select(l)">play</button>
+    {{ l.name }}
+    <button
+      *ngIf="current !== l; else showCurrent"
+      [disabled]="disabled"
+      class="btn btn-primary btn-sm"
+      (click)="select(l)"
+    >
+      play
+    </button>
+
+    <ng-template #showCurrent>
+      <small>(selected)</small>
     </ng-template>
   </div>
 </ng-container>

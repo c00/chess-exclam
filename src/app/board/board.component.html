@@ -1,5 +1,5 @@
 <div class="chessboard" [style.maxWidth.px]="size" [style.minWidth.px]="220">
-  <div class="row p-0 position-relative" *ngFor="let row of board.board; let ci = index">
+  <div class="row m-0 p-0 position-relative" *ngFor="let row of board.board; let ci = index">
     <div
       (click)="squareClick.emit(s)"
       class="board-square col"

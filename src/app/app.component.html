@@ -1,53 +1,99 @@
-<exclam-navbar></exclam-navbar>
-<div class="container text-center mt-4">
-  <exclam-game-list (selectLevel)="level = $event"></exclam-game-list>
-  <div class="row">
-    <div class="col-md-12">
-      <exclam-board
-        [board]="board"
-        (squareClick)="squareClick($event)"
-        [centerText]="centerText"
-      >
-      </exclam-board>
-      <div>
-        Player: <b>{{ board.playerColor }}</b>
+<div class="d-flex flex-column h-100">
+  <exclam-navbar></exclam-navbar>
+  <div class="container text-center mt-4">
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <h3 class="mb-0">{{ title }}</h3>
+        <div class="text-grey mb-3">{{ subtitle }}</div>
+        <exclam-board
+          [board]="board"
+          (squareClick)="squareClick($event)"
+          [centerText]="centerText"
+        >
+        </exclam-board>
+        <div class="progress" [style.height.px]="3">
+          <div
+            class="progress-bar bg-info"
+            role="progressbar"
+            [style.width.%]="percentage"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <div>
+          Player: <b>{{ board.playerColor }}</b>
+        </div>
+
+        <ng-container *ngIf="game; else noGame">
+          <div *ngIf="game.state === 'passed'">
+            <div class="alert alert-success" role="alert">
+              <h4>Success!</h4>
+              {{ winText }}
+            </div>
+            <button *ngIf="level" class="btn btn-primary" (click)="nextLevel()">
+              Next Level
+            </button>
+          </div>
+          <div *ngIf="game.state === 'failed'">
+            <div class="alert alert-info" role="alert">
+              <h4 class="text-lowercase">failed</h4>
+              {{ failText }}
+            </div>
+            <button *ngIf="level" class="btn btn-primary" (click)="startGame()">
+              Retry
+            </button>
+          </div>
+
+          <div class="my-2" *ngIf="challenge?.mode === 'pick-coords'">
+            <button
+              class="btn btn-info mx-2"
+              *ngFor="let o of challenge.options"
+              (click)="answerClick(o)"
+            >
+              {{ o }}
+            </button>
+          </div>
+          <div>
+            Score:
+            <b
+              [class.text-warning]="
+                game.state !== 'active' && game.score < game.targetScore
+              "
+              >{{ game.score }} / {{ game.targetScore }}</b
+            >
+          </div>
+          <div>
+            Mistakes:
+            <b [class.text-warning]="game.mistakes > game.maxMistakes"
+              >{{ game.mistakes }} / {{ game.maxMistakes }}</b
+            >
+          </div>
+          <div *ngIf="game.state === 'active'">
+            Time left: <b>{{ game.onTick | async }}</b>
+          </div>
+        </ng-container>
+        <ng-template #noGame>
+          <button *ngIf="level" class="btn btn-primary" (click)="startGame()">
+            Start
+          </button>
+        </ng-template>
+      </div>
+
+      <div class="col-md-6">
+        <exclam-game-list
+          [disabled]="game?.state === 'active'"
+          (selectLevel)="level = $event"
+          [current]="level"
+        ></exclam-game-list>
+        <div class="mt-4">
+          <button (click)="openLevelModal()" class="btn">
+            See Game Progress
+          </button>
+        </div>
       </div>
     </div>
-
-    <div class="col-md-12">
-      <ng-container *ngIf="game; else noGame">
-        <div class="my-2" *ngIf="game.mode === 'pick-coords'">
-          <button
-            class="btn btn-info mx-2"
-            *ngFor="let o of challenge.options"
-            (click)="answerClick(o)"
-          >
-            {{ o }}
-          </button>
-        </div>
-        <div>
-          Score: <b>{{ game.score }}</b>
-        </div>
-        <div>
-          Mistakes: <b>{{ game.mistakes }}</b>
-        </div>
-        <div *ngIf="game.state === 'active'">
-          Time left: <b>{{ game.onTick | async }}</b>
-        </div>
-        <div>
-          Game state: <b>{{ game.state }}</b>
-        </div>
-        <div *ngIf="game.state !== 'active'">
-          <button *ngIf="level" class="btn btn-primary" (click)="startGame()">
-            Start new Game ({{ level.name }})
-          </button>
-        </div>
-      </ng-container>
-      <ng-template #noGame>
-        <button *ngIf="level" class="btn btn-primary" (click)="startGame()">
-          Start new Game ({{ level.name }})
-        </button>
-      </ng-template>
-    </div>
   </div>
+
+  <exclam-about class="flex-grow-1"></exclam-about>
 </div>

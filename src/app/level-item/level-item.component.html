@@ -1,0 +1,45 @@
+<div class="d-flex">
+  <div>
+    <b>{{ level.name }}</b>
+    <ng-container *ngIf="state === 'completed'">
+      <small class="d-block">
+        <i>
+          Score: <b>{{ progress.score }}</b
+          >, mistakes: <b>{{ progress.mistakes }}</b></i
+        >
+      </small>
+    </ng-container>
+
+    <ng-container *ngIf="state === 'unlocked'">
+      <small class="d-block">(open)</small>
+    </ng-container>
+
+    <ng-container *ngIf="state === 'locked'">
+      <small class="d-block">
+        Requires <b>{{ level.pointsRequired }}</b> points
+      </small>
+    </ng-container>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div>
+    <button
+      (click)="selectLevel.emit(level)"
+      *ngIf="state === 'unlocked'"
+      class="btn btn-sm btn-primary"
+    >
+      Play
+    </button>
+    <button
+      (click)="selectLevel.emit(level)"
+      *ngIf="state === 'completed'"
+      class="btn btn-sm"
+    >
+      Play Again
+    </button>
+    <button *ngIf="state === 'locked'" disabled class="btn btn-sm">
+      (locked)
+    </button>
+  </div>
+</div>

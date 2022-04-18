@@ -35,7 +35,6 @@ export class ChessBoard {
         row.push(this.coords[coord]);
       }
     }
-    console.log(this);
   }
 
   toggleSideCoords() {

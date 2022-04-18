@@ -19,8 +19,16 @@ export class Game {
     return this._score;
   }
 
+  get targetScore(): number {
+    return this.opts.target;
+  }
+
   get mistakes(): number {
     return this._mistakes;
+  }
+
+  get maxMistakes(): number {
+    return this.opts.maxMistakes;
   }
 
   get state(): GameState {
@@ -33,6 +41,10 @@ export class Game {
 
   get secondsLeft(): number {
     return this._secondsLeft;
+  }
+
+  get startingSeconds(): number {
+    return this.opts.seconds;
   }
 
   private _result: GameResult;
@@ -83,6 +95,15 @@ export class Game {
       clearInterval(this.timer);
       this.timer = undefined;
     }
+
+    this._result = {
+      passed: false,
+      score: this.score,
+      mistakes: this.mistakes,
+      levelId: this._level.id,
+    };
+    this.completed.next(this.result);
+    this.completed.complete();
   }
 
   private getChallenge(): Challenge {
@@ -159,9 +180,9 @@ export interface GameOptions {
 }
 
 const defaultGameOpts: GameOptions = {
-  seconds: 5,
-  target: 1,
-  maxMistakes: 1,
+  seconds: 30,
+  target: 20,
+  maxMistakes: 2,
 };
 
 export interface Challenge {

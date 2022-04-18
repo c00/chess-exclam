@@ -1,0 +1,64 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Game Progress</h4>
+  <button
+    type="button"
+    class="btn-close close pull-right"
+    aria-label="Close"
+    (click)="close()"
+  >
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <!-- First block -->
+    <div class="col-lg-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <ng-container *ngIf="!confirmReset; else showConfirm">
+            <h5 class="card-title">Hello {{ name }}!</h5>
+            <div class="mb-2">
+              You currently have
+              <span class="text-lg text-strong">{{ points }}</span> points!
+            </div>
+            <div class="mb-2">
+              Every game unlocks more points! You can do it, I believe in you!
+            </div>
+            <div>If you want to start over, click the button below.</div>
+            <button (click)="confirmReset = true" class="btn btn-sm">
+              Reset Progress
+            </button>
+          </ng-container>
+          <ng-template #showConfirm>
+            <h5 class="mt-3">Are you sure?</h5>
+            <p>
+              Resetting your will let you start over from the start. This cannot
+              be undone.
+            </p>
+            <button (click)="confirmReset = false" class="btn btn-sm">
+              Go Back
+            </button>
+            <button (click)="resetProgress()" class="btn btn-sm btn-danger">
+              Really Reset
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 mb-4" *ngFor="let s of sections">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ s.name }}</h5>
+          <div class="mb-1" *ngFor="let l of s.levels">
+            <exclam-level-item
+              [level]="l"
+              [progress]="progress[l.id]"
+              (selectLevel)="selectLevel(l)"
+            ></exclam-level-item>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

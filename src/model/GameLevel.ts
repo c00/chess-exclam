@@ -5,7 +5,8 @@ import { GameMode, GameOptions } from './Game';
 export interface GameLevel {
   id?: number;
   name: string;
-  side: ChessColor;
+  section: string;
+  color: ChessColor;
   squares: string[];
   mode: GameMode;
   pointsRequired: number;
@@ -15,7 +16,8 @@ export interface GameLevel {
 export const levels: GameLevel[] = [
   {
     name: 'Level 1',
-    side: 'white',
+    section: 'Humble Beginnings',
+    color: 'white',
     mode: 'pick-square',
     squares: getRange('a1', 'd4'),
     pointsRequired: 0,
@@ -23,7 +25,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 2',
-    side: 'white',
+    section: 'Humble Beginnings',
+    color: 'white',
     mode: 'pick-coords',
     squares: getRange('a1', 'd4'),
     pointsRequired: 0,
@@ -31,7 +34,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 3',
-    side: 'black',
+    section: 'Humble Beginnings',
+    color: 'black',
     mode: 'pick-square',
     squares: getRange('a1', 'd4'),
     pointsRequired: 1,
@@ -39,7 +43,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 4',
-    side: 'black',
+    section: 'Humble Beginnings',
+    color: 'black',
     mode: 'pick-coords',
     squares: getRange('a1', 'd4'),
     pointsRequired: 2,
@@ -47,7 +52,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 5',
-    side: 'white',
+    section: 'This Corner of the World',
+    color: 'white',
     mode: 'pick-square',
     squares: getRange('a5', 'd8'),
     pointsRequired: 3,
@@ -55,7 +61,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 6',
-    side: 'white',
+    section: 'This Corner of the World',
+    color: 'white',
     mode: 'pick-coords',
     squares: getRange('a5', 'd8'),
     pointsRequired: 4,
@@ -63,7 +70,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 7',
-    side: 'black',
+    section: 'This Corner of the World',
+    color: 'black',
     mode: 'pick-square',
     squares: getRange('a5', 'd8'),
     pointsRequired: 5,
@@ -71,7 +79,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 8',
-    side: 'black',
+    section: 'This Corner of the World',
+    color: 'black',
     mode: 'pick-coords',
     squares: getRange('a5', 'd8'),
     pointsRequired: 6,
@@ -80,7 +89,8 @@ export const levels: GameLevel[] = [
 
   {
     name: 'Trials 1',
-    side: 'white',
+    section: 'Halfway House',
+    color: 'white',
     mode: 'pick-coords',
     squares: getRange('a1', 'd8'),
     pointsRequired: 8,
@@ -88,7 +98,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Trials 2',
-    side: 'black',
+    section: 'Halfway House',
+    color: 'black',
     mode: 'pick-coords',
     squares: getRange('a1', 'd8'),
     pointsRequired: 8,
@@ -96,7 +107,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Trials 3',
-    side: 'white',
+    section: 'Halfway House',
+    color: 'white',
     mode: 'pick-square',
     squares: getRange('a1', 'd8'),
     pointsRequired: 8,
@@ -104,7 +116,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Trials 4',
-    side: 'black',
+    section: 'Halfway House',
+    color: 'black',
     mode: 'pick-square',
     squares: getRange('a1', 'd8'),
     pointsRequired: 8,
@@ -113,7 +126,8 @@ export const levels: GameLevel[] = [
 
   {
     name: 'Level 9',
-    side: 'white',
+    section: "It's hip to be Square",
+    color: 'white',
     mode: 'pick-square',
     squares: getRange('e1', 'h4'),
     pointsRequired: 12,
@@ -121,7 +135,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 10',
-    side: 'white',
+    section: "It's hip to be Square",
+    color: 'white',
     mode: 'pick-coords',
     squares: getRange('e1', 'h4'),
     pointsRequired: 12,
@@ -129,7 +144,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 11',
-    side: 'black',
+    section: "It's hip to be Square",
+    color: 'black',
     mode: 'pick-square',
     squares: getRange('e1', 'h4'),
     pointsRequired: 13,
@@ -137,7 +153,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 12',
-    side: 'black',
+    section: "It's hip to be Square",
+    color: 'black',
     mode: 'pick-coords',
     squares: getRange('e1', 'h4'),
     pointsRequired: 14,
@@ -145,7 +162,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 13',
-    side: 'white',
+    section: 'The Last Dance',
+    color: 'white',
     mode: 'pick-square',
     squares: getRange('e5', 'h8'),
     pointsRequired: 15,
@@ -153,7 +171,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 14',
-    side: 'white',
+    section: 'The Last Dance',
+    color: 'white',
     mode: 'pick-coords',
     squares: getRange('e5', 'h8'),
     pointsRequired: 16,
@@ -161,7 +180,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 15',
-    side: 'black',
+    section: 'The Last Dance',
+    color: 'black',
     mode: 'pick-square',
     squares: getRange('e5', 'h8'),
     pointsRequired: 17,
@@ -169,7 +189,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Level 16',
-    side: 'black',
+    section: 'The Last Dance',
+    color: 'black',
     mode: 'pick-coords',
     squares: getRange('e5', 'h8'),
     pointsRequired: 18,
@@ -178,7 +199,8 @@ export const levels: GameLevel[] = [
 
   {
     name: 'Trials 5',
-    side: 'white',
+    section: 'Show Me Your Might',
+    color: 'white',
     mode: 'pick-coords',
     squares: getRange('e1', 'h8'),
     pointsRequired: 20,
@@ -186,7 +208,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Trials 6',
-    side: 'black',
+    section: 'Show Me Your Might',
+    color: 'black',
     mode: 'pick-coords',
     squares: getRange('e1', 'h8'),
     pointsRequired: 20,
@@ -194,7 +217,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Trials 7',
-    side: 'white',
+    section: 'Show Me Your Might',
+    color: 'white',
     mode: 'pick-square',
     squares: getRange('e1', 'h8'),
     pointsRequired: 20,
@@ -202,17 +226,18 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Trials 8',
-    side: 'black',
+    section: 'Show Me Your Might',
+    color: 'black',
     mode: 'pick-square',
     squares: getRange('e1', 'h8'),
     pointsRequired: 20,
     id: 24,
   },
 
-
   {
     name: 'Exam 1',
-    side: 'white',
+    section: 'Bring It Home',
+    color: 'white',
     mode: 'pick-coords',
     squares: getRange('a1', 'h8'),
     pointsRequired: 24,
@@ -220,7 +245,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Exam 2',
-    side: 'black',
+    section: 'Bring It Home',
+    color: 'black',
     mode: 'pick-coords',
     squares: getRange('a1', 'h8'),
     pointsRequired: 24,
@@ -228,7 +254,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Exam 3',
-    side: 'white',
+    section: 'Bring It Home',
+    color: 'white',
     mode: 'pick-square',
     squares: getRange('a1', 'h8'),
     pointsRequired: 24,
@@ -236,7 +263,8 @@ export const levels: GameLevel[] = [
   },
   {
     name: 'Exam 4',
-    side: 'black',
+    section: 'Bring It Home',
+    color: 'black',
     mode: 'pick-square',
     squares: getRange('a1', 'h8'),
     pointsRequired: 24,

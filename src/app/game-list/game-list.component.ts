@@ -9,7 +9,11 @@ import { ProgressService } from '../progress.service';
 })
 export class GameListComponent {
   @Output() selectLevel = new EventEmitter<GameLevel>();
+  @Input() disabled = false;
+  @Input() current: GameLevel;
+
   list: GameLevel[];
+  open: GameLevel[] = [];
 
   get myPoints(): number {
     return this.ps.progress.points;
@@ -17,10 +21,17 @@ export class GameListComponent {
 
   constructor(private ps: ProgressService) {
     this.list = levels;
+    this.setOpen();
+
+    ps.onProgess.subscribe((p) => this.setOpen());
   }
 
-  isComplete(l: GameLevel): boolean {
-    return this.ps.progress.levels[l.id]?.passed
+  private setOpen() {
+    this.open = this.list.filter(
+      (l) =>
+        l.pointsRequired <= this.myPoints &&
+        !this.ps.progress.levels[l.id]?.passed
+    );
   }
 
   select(l: GameLevel): void {
