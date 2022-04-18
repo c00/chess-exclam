@@ -45,14 +45,12 @@
             </button>
           </div>
 
-          <div class="my-2" *ngIf="challenge?.mode === 'pick-coords'">
-            <button
-              class="btn btn-info mx-2"
-              *ngFor="let o of challenge.options"
-              (click)="answerClick(o)"
-            >
-              {{ o }}
-            </button>
+          <div class="my-2 row" *ngIf="challenge?.mode === 'pick-coords'">
+            <div class="col-6 col-sm-3 mb-4" *ngFor="let o of challenge.options">
+              <button class="btn btn-block btn-info" (click)="answerClick(o)">
+                {{ o }}
+              </button>
+            </div>
           </div>
           <div>
             Score:
