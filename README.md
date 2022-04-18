@@ -1,4 +1,4 @@
-# Exclam! A progressive Chess Coordinates trainer
+# Exclam! A Chess Coordinates trainer
 
 Do you want to seem like you know what you're talking about when playing chess? Are you trying to follow along with your favorite chess streamers as they rattle off line after line? Are you like me also incredibly demotivated to actually go through the effort of learning coordinates properly? Well, that's what we're trying to solve.
 
