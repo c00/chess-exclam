@@ -60,7 +60,7 @@ export class Game {
     private _level: GameLevel
   ) {
     if (!_level.opts) _level.opts = {};
-    this.opts = Object.assign({}, _level.opts, defaultGameOpts);
+    this.opts = Object.assign({}, defaultGameOpts, _level.opts);
   }
 
   start(): Challenge {
