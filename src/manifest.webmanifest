@@ -328,28 +328,39 @@
       "sizes": "256x256"
     },
     {
-      "src": "assets/icons/android/android-launchericon-512-512.png",
-      "sizes": "512x512"
+      "src": "assets/icons/android/maskable_icon_x512.png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     },
     {
-      "src": "assets/icons/android/android-launchericon-192-192.png",
-      "sizes": "192x192"
+      "src": "assets/icons/android/maskable_icon_x384.png",
+      "sizes": "384x384",
+      "purpose": "maskable"
     },
     {
-      "src": "assets/icons/android/android-launchericon-144-144.png",
-      "sizes": "144x144"
+      "src": "assets/icons/android/maskable_icon_x192.png",
+      "sizes": "192x192",
+      "purpose": "maskable"
     },
     {
-      "src": "assets/icons/android/android-launchericon-96-96.png",
-      "sizes": "96x96"
+      "src": "assets/icons/android/maskable_icon_x128.png",
+      "sizes": "128x128",
+      "purpose": "maskable"
     },
     {
-      "src": "assets/icons/android/android-launchericon-72-72.png",
-      "sizes": "72x72"
+      "src": "assets/icons/android/maskable_icon_x96.png",
+      "sizes": "96x96",
+      "purpose": "maskable"
     },
     {
-      "src": "assets/icons/android/android-launchericon-48-48.png",
-      "sizes": "48x48"
+      "src": "assets/icons/android/maskable_icon_x72.png",
+      "sizes": "72x72",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/android/maskable_icon_x48.png",
+      "sizes": "48x48",
+      "purpose": "maskable"
     },
     {
       "src": "assets/icons/ios/16.png",
