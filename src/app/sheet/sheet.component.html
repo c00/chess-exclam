@@ -1,0 +1,37 @@
+<div class="sheet-container">
+  <div class="sheet bg-light p-2" @myInsertRemoveTrigger *ngIf="isShown">
+    <div class="d-flex align-items-start">
+      <span class="flex-grow-1">
+        <ng-container *ngIf="currentOs === 'ios'; else android">
+          <div>
+            To install <i>Exclam!</i> on your device tap the Menu button and
+            then 'Add to Home screen' button
+          </div>
+          <div class="text-center">
+            <img src="./assets/ios-menu-btn.png" />
+            &gt;
+            <img src="./assets/ios-add-btn.png" />
+          </div>
+
+          <button class="btn btn-sm btn-block" (click)="postpone()">
+            close
+          </button>
+        </ng-container>
+
+        <ng-template #android>
+          Tap to add <i>Exclam!</i> to your home screen
+
+          <div class="d-flex mt-2">
+            <button class="btn btn-sm btn-primary" (click)="installPwa()">
+              yes please
+            </button>
+            <span class="flex-grow-1"></span>
+            <button class="btn btn-sm" (click)="postpone()">
+              no thanks
+            </button>
+          </div>
+        </ng-template>
+      </span>
+    </div>
+  </div>
+</div>

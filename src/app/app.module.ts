@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -13,6 +13,10 @@ import { AboutComponent } from './about/about.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { InstructionsModalComponent } from './instructions-modal/instructions-modal.component';
+import { SheetComponent } from './sheet/sheet.component';
+import { SheetService } from './sheet.service';
+
+const initializer = (sheets: SheetService) => () => sheets.initPwaPrompt();
 
 @NgModule({
   declarations: [
@@ -23,7 +27,8 @@ import { InstructionsModalComponent } from './instructions-modal/instructions-mo
     LevelModalComponent,
     LevelItemComponent,
     AboutComponent,
-    InstructionsModalComponent
+    InstructionsModalComponent,
+    SheetComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,10 +38,17 @@ import { InstructionsModalComponent } from './instructions-modal/instructions-mo
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializer,
+      deps: [SheetService],
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
