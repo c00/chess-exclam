@@ -12,6 +12,7 @@ import { LevelItemComponent } from './level-item/level-item.component';
 import { AboutComponent } from './about/about.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { InstructionsModalComponent } from './instructions-modal/instructions-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { environment } from '../environments/environment';
     GameListComponent,
     LevelModalComponent,
     LevelItemComponent,
-    AboutComponent
+    AboutComponent,
+    InstructionsModalComponent
   ],
   imports: [
     BrowserModule,

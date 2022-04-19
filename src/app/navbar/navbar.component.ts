@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { InstructionsModalComponent } from '../instructions-modal/instructions-modal.component';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'exclam-navbar',
@@ -6,5 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  constructor() {}
+  constructor(private modals: ModalService) {}
+
+  showInstructions() {
+    this.modals.show(InstructionsModalComponent, { class: 'modal-lg' });
+  }
 }
