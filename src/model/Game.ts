@@ -81,7 +81,7 @@ export class Game {
 
     if (c.answer === answer) {
       this._score++;
-      return { correct: true, nextChallenge: this.getChallenge() };
+      return { correct: true, nextChallenge: this.getChallenge(c) };
     } else {
       this._mistakes++;
       return { correct: false, nextChallenge: c };
@@ -106,10 +106,10 @@ export class Game {
     this.completed.complete();
   }
 
-  private getChallenge(): Challenge {
+  private getChallenge(prev?: Challenge): Challenge {
     const c: Challenge = {
       mode: this.mode,
-      answer: this.getRandomSquare().coords,
+      answer: this.getRandomSquare(prev?.answer).coords,
     };
 
     if (c.mode === 'pick-coords') {
@@ -131,9 +131,13 @@ export class Game {
     return c;
   }
 
-  private getRandomSquare(): ChessSquare {
+  private getRandomSquare(not?: string): ChessSquare {
     const index = Math.floor(Math.random() * this.squares.length);
-    return this.squares[index];
+    const sq = this.squares[index];
+    if (sq.coords !== not) return sq;
+
+    //Otherwise, get another
+    return this.getRandomSquare(not);
   }
 
   private tick() {

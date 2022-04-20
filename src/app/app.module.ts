@@ -15,6 +15,7 @@ import { environment } from '../environments/environment';
 import { InstructionsModalComponent } from './instructions-modal/instructions-modal.component';
 import { SheetComponent } from './sheet/sheet.component';
 import { SheetService } from './sheet.service';
+import { SoundComponent } from './sound/sound.component';
 
 const initializer = (sheets: SheetService) => () => sheets.initPwaPrompt();
 
@@ -29,6 +30,7 @@ const initializer = (sheets: SheetService) => () => sheets.initPwaPrompt();
     AboutComponent,
     InstructionsModalComponent,
     SheetComponent,
+    SoundComponent,
   ],
   imports: [
     BrowserModule,

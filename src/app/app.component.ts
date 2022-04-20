@@ -7,6 +7,7 @@ import { ProgressService } from './progress.service';
 import { ModalService } from './modal.service';
 import { LevelModalComponent } from './level-modal/level-modal.component';
 import { winTexts, failTexts } from '../model/motivation';
+import { SoundService } from './sound.service';
 
 @Component({
   selector: 'app-root',
@@ -45,7 +46,11 @@ export class AppComponent {
     return 100 - (this.game.secondsLeft / this.game.startingSeconds) * 100;
   }
 
-  constructor(private ps: ProgressService, private modals: ModalService) {
+  constructor(
+    private ps: ProgressService,
+    private modals: ModalService,
+    private ss: SoundService
+  ) {
     this.level = this.ps.getCurrentLevel();
   }
 
@@ -57,14 +62,21 @@ export class AppComponent {
   squareClick(e: ChessSquare): void {
     if (this.game?.state !== 'active') return;
     if (this.challenge?.mode !== 'pick-square') return;
-    const result = this.game.solveChallenge(this.challenge, e.coords);
-    this.challenge = result.nextChallenge;
-    this.prepChallenge();
+    this.processAnswer(e.coords);
   }
 
   answerClick(a: string): void {
     if (this.game?.state !== 'active') return;
+    this.processAnswer(a);
+  }
+
+  private processAnswer(a: string) {
     const result = this.game.solveChallenge(this.challenge, a);
+    if (result.correct) {
+      this.ss.playPositive();
+    } else {
+      this.ss.playNegative();
+    }
     this.challenge = result.nextChallenge;
     this.prepChallenge();
   }
