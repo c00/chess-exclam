@@ -1,7 +1,7 @@
 <div class="chessboard" [style.maxWidth.px]="size" [style.minWidth.px]="220">
   <div class="row m-0 p-0 position-relative" *ngFor="let row of board.board; let ci = index">
     <div
-      (click)="squareClick.emit(s)"
+      (click)="onClick(s, $event)"
       class="board-square col"
       [class.highlight]="s.highlight"
       [class.disabled]="s.disabled"

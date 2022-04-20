@@ -18,7 +18,6 @@ export class SoundService {
     if (val !== null && val !== undefined) {
       this._soundEnabled = val;
     }
-    console.log(this._soundEnabled);
     this.negativeSound.load();
     this.positiveSound.load();
   }

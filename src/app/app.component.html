@@ -47,7 +47,7 @@
 
           <div class="my-2 row" *ngIf="challenge?.mode === 'pick-coords'">
             <div class="col-6 col-sm-3 mb-4" *ngFor="let o of challenge.options">
-              <button class="btn btn-block btn-info" (click)="answerClick(o)">
+              <button class="btn btn-block btn-info" (click)="answerClick(o, $event)">
                 {{ o }}
               </button>
             </div>
@@ -96,3 +96,4 @@
   <exclam-about class="flex-grow-1"></exclam-about>
 </div>
 <exclam-sheet></exclam-sheet>
+<exclam-result-indicator #indicator></exclam-result-indicator>

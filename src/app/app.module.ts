@@ -16,6 +16,7 @@ import { InstructionsModalComponent } from './instructions-modal/instructions-mo
 import { SheetComponent } from './sheet/sheet.component';
 import { SheetService } from './sheet.service';
 import { SoundComponent } from './sound/sound.component';
+import { ResultIndicatorComponent } from './result-indicator/result-indicator.component';
 
 const initializer = (sheets: SheetService) => () => sheets.initPwaPrompt();
 
@@ -31,6 +32,7 @@ const initializer = (sheets: SheetService) => () => sheets.initPwaPrompt();
     InstructionsModalComponent,
     SheetComponent,
     SoundComponent,
+    ResultIndicatorComponent,
   ],
   imports: [
     BrowserModule,

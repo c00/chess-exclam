@@ -2,7 +2,6 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { SheetService } from '../sheet.service';
 import { filter } from 'rxjs/operators';
-import { StoreService } from '../store.service';
 
 @Component({
   selector: 'exclam-sheet',

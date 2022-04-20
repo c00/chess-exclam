@@ -1,0 +1,18 @@
+<div
+  *ngIf="show === 'positive'"
+  @fly
+  class="indicator"
+  [style.top.px]="y"
+  [style.left.px]="x"
+>
+  <i class="bi-check-lg text-success"></i>
+</div>
+<div
+  *ngIf="show === 'negative'"
+  @fly
+  class="indicator"
+  [style.top.px]="y"
+  [style.left.px]="x"
+>
+  <i class="bi-x-lg text-danger"></i>
+</div>

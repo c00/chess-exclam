@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ChessSquare } from '../model/ChessSquare';
 import { ChessBoard } from '../model/ChessBoard';
 import { Game, Challenge, GameResult } from '../model/Game';
@@ -8,6 +8,8 @@ import { ModalService } from './modal.service';
 import { LevelModalComponent } from './level-modal/level-modal.component';
 import { winTexts, failTexts } from '../model/motivation';
 import { SoundService } from './sound.service';
+import { ResultIndicatorComponent } from './result-indicator/result-indicator.component';
+import { SquareClickEvent } from './board/board.component';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +17,7 @@ import { SoundService } from './sound.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  @ViewChild('indicator') indicator: ResultIndicatorComponent;
   _level: GameLevel;
   board = new ChessBoard();
   game: Game;
@@ -52,6 +55,10 @@ export class AppComponent {
     private ss: SoundService
   ) {
     this.level = this.ps.getCurrentLevel();
+
+    // setInterval(() => {
+    //   this.indicator?.showNegative(200, 200);
+    // }, 2000);
   }
 
   nextLevel() {
@@ -59,22 +66,24 @@ export class AppComponent {
     this.startGame();
   }
 
-  squareClick(e: ChessSquare): void {
+  squareClick(ev: SquareClickEvent): void {
     if (this.game?.state !== 'active') return;
     if (this.challenge?.mode !== 'pick-square') return;
-    this.processAnswer(e.coords);
+    this.processAnswer(ev.square.coords, ev.event.x, ev.event.y);
   }
 
-  answerClick(a: string): void {
+  answerClick(a: string, e: MouseEvent): void {
     if (this.game?.state !== 'active') return;
-    this.processAnswer(a);
+    this.processAnswer(a, e.x, e.y);
   }
 
-  private processAnswer(a: string) {
+  private processAnswer(a: string, x: number, y: number) {
     const result = this.game.solveChallenge(this.challenge, a);
     if (result.correct) {
+      this.indicator.showPositive(x, y);
       this.ss.playPositive();
     } else {
+      this.indicator.showNegative(x, y);
       this.ss.playNegative();
     }
     this.challenge = result.nextChallenge;
