@@ -24,6 +24,9 @@
         <div>
           Player: <b>{{ board.playerColor }}</b>
         </div>
+        <div *ngIf="level" class="mb-2">
+          <small class="text-grey">{{ modes[level.mode] }}</small>
+        </div>
 
         <ng-container *ngIf="game; else noGame">
           <div *ngIf="game.state === 'passed'">
@@ -45,9 +48,21 @@
             </button>
           </div>
 
+          <div *ngIf="game.state === 'stopped'">
+            <button *ngIf="level" class="btn btn-primary" (click)="startGame()">
+              Start again
+            </button>
+          </div>
+
           <div class="my-2 row" *ngIf="challenge?.mode === 'pick-coords'">
-            <div class="col-6 col-sm-3 mb-4" *ngFor="let o of challenge.options">
-              <button class="btn btn-block btn-info" (click)="answerClick(o, $event)">
+            <div
+              class="col-6 col-sm-3 mb-4"
+              *ngFor="let o of challenge.options"
+            >
+              <button
+                class="btn btn-block btn-info"
+                (click)="answerClick(o, $event)"
+              >
                 {{ o }}
               </button>
             </div>
@@ -56,7 +71,7 @@
             Score:
             <b
               [class.text-warning]="
-                game.state !== 'active' && game.score < game.targetScore
+                !gameActive && game.score < game.targetScore
               "
               >{{ game.score }} / {{ game.targetScore }}</b
             >
@@ -67,9 +82,16 @@
               >{{ game.mistakes }} / {{ game.maxMistakes }}</b
             >
           </div>
-          <div *ngIf="game.state === 'active'">
-            Time left: <b>{{ game.onTick | async }}</b>
-          </div>
+          <ng-container *ngIf="gameActive">
+            <div>
+              Time left: <b>{{ game.onTick | async }}</b>
+            </div>
+            <div>
+              <button (click)="game.stop()" class="btn btn-warning">
+                stop
+              </button>
+            </div>
+          </ng-container>
         </ng-container>
         <ng-template #noGame>
           <button *ngIf="level" class="btn btn-primary" (click)="startGame()">
@@ -79,13 +101,22 @@
       </div>
 
       <div class="col-lg-6">
+        <exclam-congrat-content
+          *ngIf="allDone"
+          (selectLevel)="level = $event"
+        ></exclam-congrat-content>
+
         <exclam-game-list
           [disabled]="game?.state === 'active'"
           (selectLevel)="level = $event"
           [current]="level"
         ></exclam-game-list>
         <div class="mt-4">
-          <button (click)="openLevelModal()" class="btn">
+          <button
+            [disabled]="gameActive"
+            (click)="openLevelModal()"
+            class="btn"
+          >
             See Game Progress
           </button>
         </div>

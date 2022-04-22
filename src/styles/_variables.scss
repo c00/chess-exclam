@@ -8,36 +8,36 @@ $theme: "lux" !default;
 //
 
 $white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #f7f7f9 !default;
-$gray-300: #eceeef !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #919aa1 !default;
-$gray-700: #55595c !default;
-$gray-800: #343a40 !default;
-$gray-900: #1a1a1a !default;
+$gray-100: #f1f5f9 !default;
+$gray-200: #e2e8f0 !default;
+$gray-300: #cbd5e1 !default;
+$gray-400: #94a3b8 !default;
+$gray-500: #64748b !default;
+$gray-600: #475569 !default;
+$gray-700: #334155 !default;
+$gray-800: #1e293b !default;
+$gray-900: #0f172a !default;
 $black:    #000 !default;
 
-$blue:    #007bff !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #e83e8c !default;
-$red:     #d9534f !default;
-$orange:  #fd7e14 !default;
-$yellow:  #f0ad4e !default;
-$green:   #4bbf73 !default;
-$teal:    #20c997 !default;
-$cyan:    #1f9bcf !default;
+$blue:    #3b82f6 !default;
+$indigo:  #818cf8 !default;
+$purple:  #9333ea !default;
+$pink:    #f472b6 !default;
+$red:     #f43f5e !default;
+$orange:  #fb923c !default;
+$yellow:  #facc15 !default;
+$green:   #4ade80 !default;
+$teal:    #5eead4 !default;
+$cyan:    #0891b2 !default;
 
-$primary:       $gray-900 !default;
-$secondary:     $white !default;
+$primary:       $cyan !default;
+$secondary:     $purple !default;
 $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $white !default;
-$dark:          $gray-800 !default;
+$dark:          $gray-700 !default;
 
 $min-contrast-ratio:   2.3 !default;
 

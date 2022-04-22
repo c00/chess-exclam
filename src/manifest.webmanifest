@@ -1,8 +1,8 @@
 {
   "name": "Exclam! Chess Coordinate Trainer",
   "short_name": "Exclam!",
-  "theme_color": "#343a40",
-  "background_color": "#fdfdfd",
+  "theme_color": "#0891b2",
+  "background_color": "#f1f5f9",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

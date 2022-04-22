@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Trumpets and Fanfare</h4>
+  <button
+    type="button"
+    class="btn-close close pull-right"
+    aria-label="Close"
+    (click)="close()"
+  >
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body text-center">
+  <exclam-congrat-content (selectLevel)="onSelect($event)"></exclam-congrat-content>
+</div>
+<div class="modal-footer">
+  <button class="btn" (click)="close()">return</button>
+</div>

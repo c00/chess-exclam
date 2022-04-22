@@ -17,6 +17,8 @@ import { SheetComponent } from './sheet/sheet.component';
 import { SheetService } from './sheet.service';
 import { SoundComponent } from './sound/sound.component';
 import { ResultIndicatorComponent } from './result-indicator/result-indicator.component';
+import { CongratsDialogComponent } from './congrats-dialog/congrats-dialog.component';
+import { CongratContentComponent } from './congrat-content/congrat-content.component';
 
 const initializer = (sheets: SheetService) => () => sheets.initPwaPrompt();
 
@@ -33,6 +35,8 @@ const initializer = (sheets: SheetService) => () => sheets.initPwaPrompt();
     SheetComponent,
     SoundComponent,
     ResultIndicatorComponent,
+    CongratsDialogComponent,
+    CongratContentComponent,
   ],
   imports: [
     BrowserModule,

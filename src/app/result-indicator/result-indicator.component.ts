@@ -29,7 +29,7 @@ export class ResultIndicatorComponent {
 
   showNegative(x: number, y: number) {
     this.x = x - 15;
-    this.y = y - 15;
+    this.y = y - 25;
     this.show = 'negative';
     this.startTime();
   }

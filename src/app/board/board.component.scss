@@ -5,6 +5,7 @@
 }
 
 .centered-content {
+  user-select: none;
   pointer-events: none;
   position: absolute;
   top: 0;
@@ -18,6 +19,8 @@
   color: #fff;
 
   .content-square {
+    display: inline-block;
+    min-width: 100px;
     padding: .1em;
     border-radius: 3%;
     background-color: rgba(#333, .3);
@@ -96,6 +99,7 @@
 .side-coord {
   font-size: 0.7em;
   position: absolute;
+  user-select: none;
 
   &.left-bottom {
     left: 2px;

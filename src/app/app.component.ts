@@ -1,15 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
-import { ChessSquare } from '../model/ChessSquare';
 import { ChessBoard } from '../model/ChessBoard';
-import { Game, Challenge, GameResult } from '../model/Game';
-import { GameLevel } from '../model/GameLevel';
-import { ProgressService } from './progress.service';
-import { ModalService } from './modal.service';
-import { LevelModalComponent } from './level-modal/level-modal.component';
-import { winTexts, failTexts } from '../model/motivation';
-import { SoundService } from './sound.service';
-import { ResultIndicatorComponent } from './result-indicator/result-indicator.component';
+import { Challenge, Game, GameResult } from '../model/Game';
+import { GameLevel, levels } from '../model/GameLevel';
+import { failTexts, winTexts } from '../model/motivation';
 import { SquareClickEvent } from './board/board.component';
+import { LevelModalComponent } from './level-modal/level-modal.component';
+import { ModalService } from './modal.service';
+import { ProgressService } from './progress.service';
+import { ResultIndicatorComponent } from './result-indicator/result-indicator.component';
+import { SoundService } from './sound.service';
+import { CongratsDialogComponent } from './congrats-dialog/congrats-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +25,14 @@ export class AppComponent {
   centerText: string;
   winText: string;
   failText: string;
+  modes = {
+    'pick-coords': 'Pick Coordinates',
+    'pick-square': 'Find the Square',
+  };
+
+  get gameActive(): boolean {
+    return this.game?.state === 'active' || false;
+  }
 
   get level(): GameLevel {
     return this._level;
@@ -34,6 +42,11 @@ export class AppComponent {
     if (v === this._level) return;
     this._level = v;
     this.prepareLevel();
+  }
+
+  get allDone(): boolean {
+    const lastLevel = levels[levels.length - 1];
+    return this.ps.progress.levels[lastLevel.id]?.passed;
   }
 
   get title(): string {
@@ -55,10 +68,15 @@ export class AppComponent {
     private ss: SoundService
   ) {
     this.level = this.ps.getCurrentLevel();
+  }
 
-    // setInterval(() => {
-    //   this.indicator?.showNegative(200, 200);
-    // }, 2000);
+  private async openFinalDialog() {
+    const level = await this.modals.show(CongratsDialogComponent, {
+      class: 'modal-lg',
+    });
+    if (level) {
+      this._level = level;
+    }
   }
 
   nextLevel() {
@@ -91,19 +109,32 @@ export class AppComponent {
   }
 
   startGame(): void {
+    //Prep
     const squares = this.board.squares.filter((s) =>
       this.level.squares.includes(s.coords)
     );
     this.game = new Game(squares, this.level);
     this.board.enableSquares(this.level.squares);
-    this.challenge = this.game.start();
-    this.game.completed.subscribe((r) => this.gameOver(r));
 
-    this.board.setColor(this.level.color);
-    this.prepChallenge();
+    let count = 3;
+    this.centerText = String(3);
+    const countDown = setInterval(() => {
+      count--;
+      this.centerText = String(count);
+      if (count <= 0) {
+        clearInterval(countDown);
 
-    this.winText = winTexts[Math.floor(Math.random() * winTexts.length)];
-    this.failText = failTexts[Math.floor(Math.random() * failTexts.length)];
+        //The actual start
+        this.challenge = this.game.start();
+        this.game.completed.subscribe((r) => this.gameOver(r));
+        this.board.setColor(this.level.color);
+        this.prepChallenge();
+
+        this.winText = winTexts[Math.floor(Math.random() * winTexts.length)];
+        this.failText = failTexts[Math.floor(Math.random() * failTexts.length)];
+        return;
+      }
+    }, 1000);
   }
 
   async openLevelModal() {
@@ -123,6 +154,11 @@ export class AppComponent {
   private gameOver(r: GameResult) {
     this.ps.gameComplete(r);
     this.challenge = null;
+
+    //Todo somehow fix the issue that this will happen everytime you do the last level.
+    if (r.levelId === levels[levels.length - 1].id && r.passed) {
+      this.openFinalDialog();
+    }
   }
 
   private prepChallenge(): void {

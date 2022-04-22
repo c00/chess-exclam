@@ -15,12 +15,17 @@ export class LevelModalComponent {
 
   confirmReset = false;
 
+  private _score: number;
   get progress(): Record<string, GameResult> {
     return this.ps.progress.levels;
   }
 
   get points(): number {
     return this.ps.progress.points;
+  }
+
+  get score(): number {
+    return this._score;
   }
 
   get name(): string {
@@ -38,6 +43,12 @@ export class LevelModalComponent {
       } else {
         s.levels.push(l);
       }
+    }
+
+    //Calculate total score
+    this._score = 0;
+    for (const l of Object.values(this.ps.progress.levels)) {
+      this._score += l.score;
     }
   }
 

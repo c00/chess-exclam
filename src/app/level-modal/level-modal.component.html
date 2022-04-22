@@ -19,10 +19,11 @@
             <h5 class="card-title">Hello {{ name }}!</h5>
             <div class="mb-2">
               You currently have
-              <span class="text-lg text-strong">{{ points }}</span> points!
+              <b><span class="text-lg text-strong">{{ points }}</span> pawns!</b>
+              Collect more pawns to unlock new levels. You can do it, I believe in you!
             </div>
             <div class="mb-2">
-              Every game unlocks more points! You can do it, I believe in you!
+              Your total score is <b>{{ score }}</b>! The score is made up of your highest score per level
             </div>
             <div>If you want to start over, click the button below.</div>
             <button (click)="confirmReset = true" class="btn btn-sm">

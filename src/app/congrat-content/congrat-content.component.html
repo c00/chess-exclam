@@ -1,0 +1,37 @@
+<h3>You are amazing!</h3>
+
+Final score:
+<div class="circle mb-4">
+  <span class="score">{{ score }}</span>
+</div>
+
+<div class="mb-2">
+  The streets are filling up with people singing songs in your honor!
+</div>
+
+<div class="mb-2">
+  You have completed all available levels. You could reset your progress and
+  start over, or you can keep playing the levels you want to improve at.
+</div>
+
+<div class="mb-2">Either way, you're a legend.</div>
+
+<div class="mb-2">
+  Please imagine some amazingly animated confetti that would've blown your socks
+  off.
+</div>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">Final Levels</h5>
+    <div class="row">
+      <div class="mb-1 col-md-6" *ngFor="let l of levels">
+        <exclam-level-item
+          [level]="l"
+          [progress]="progress[l.id]"
+          (selectLevel)="selectLevel.emit(l)"
+        ></exclam-level-item>
+      </div>
+    </div>
+  </div>
+</div>

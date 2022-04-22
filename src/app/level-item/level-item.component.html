@@ -4,8 +4,13 @@
     <ng-container *ngIf="state === 'completed'">
       <small class="d-block">
         <i>
-          Score: <b>{{ progress.score }}</b
-          >, mistakes: <b>{{ progress.mistakes }}</b></i
+          <span class="together"
+            >Score: <b>{{ progress.score }}</b
+            >, </span
+          >
+          <span class="together"
+            >mistakes: <b>{{ progress.mistakes }}</b></span
+          ></i
         >
       </small>
     </ng-container>
@@ -16,7 +21,7 @@
 
     <ng-container *ngIf="state === 'locked'">
       <small class="d-block">
-        Requires <b>{{ level.pointsRequired }}</b> points
+        Requires <b>{{ level.pointsRequired }} pawns</b>
       </small>
     </ng-container>
   </div>

@@ -1,0 +1,19 @@
+@import 'src/styles/variables';
+
+.circle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background-color: $secondary;
+}
+
+.score {
+  flex-grow: 1;
+  text-align: center;
+  color: $light;
+  font-size: 4em;
+}
